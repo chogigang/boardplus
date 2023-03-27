@@ -1,4 +1,4 @@
-package cho.boardplus.boardrepository;
+package cho.boardplus.repository;
 
 import cho.boardplus.entity.BoardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
