@@ -10,14 +10,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name= "board")
-public class BoardEntity  extends BaseEntity{
+public class BoardEntity  extends BaseEntity {
 
     @Id //pk 컬럼 지정. 필수
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;  //id 값
 
     @Column(length = 20, nullable = false)//크기 20, not null
-    private String bardWriter;// 글 작성자
+    private String boardWriter;// 글 작성자
 
     @Column
     private String boardTitle; //제목
@@ -34,7 +34,7 @@ public class BoardEntity  extends BaseEntity{
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBardWriter(boardDTO.getBoardWriter());
+        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);

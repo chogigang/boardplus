@@ -4,7 +4,10 @@ import cho.boardplus.dto.BoardDTO;
 import cho.boardplus.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/board")
@@ -33,6 +36,14 @@ public class BoardController {
     System.out.println("boardDTO = "+boardDTO);
     boardService.save(boardDTO);
         return "index"; // <index 로 변경
+
+    }
+@GetMapping("/index")
+    public String finAll(Model model) {
+        //DB 에서 전체 게시글 데이터를 가져와서 Index.html에 보여준다.
+    List<BoardDTO> boardDTOList = boardService.findAll();
+    model.addAttribute("boardList",boardDTOList);
+    return "index";
 
     }
 }

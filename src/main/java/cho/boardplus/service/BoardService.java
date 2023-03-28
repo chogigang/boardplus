@@ -6,6 +6,9 @@ import cho.boardplus.entity.BoardEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 //DTO -> Entity  (Entity Class)
 //Entity -> DTO (DTO Class)
@@ -18,8 +21,18 @@ public class BoardService {
 
     //작성
     public void save(BoardDTO boardDTO) {
-        BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO); //추가
-        boardRepository.save(boardEntity); //추가
+        BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+        boardRepository.save(boardEntity);
+
+    }
+
+    public List<BoardDTO> findAll() { // 추가
+        List<BoardEntity> boardEntityList = boardRepository.findAll();
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for (BoardEntity boardEntity: boardEntityList) {
+            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+       }
+        return boardDTOList;
 
     }
 }
