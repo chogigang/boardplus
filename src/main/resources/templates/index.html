@@ -14,19 +14,19 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Writer</th>
-        <th>Created Time</th>
-        <th>Hits</th>
+        <th>id</th>
+        <th>title</th>
+        <th>title(||쓰지 않은 경우)</th>
+        <th>writer</th>
+        <th>date</th>
+        <th>hits</th>
     </tr>
-    </thead>
-    <tbody>
-    <tr th:each="board : ${boardList}">
+    <tr th:each="board: ${boardList}">
         <td th:text="${board.id}"></td>
-        <td><a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.boardTitle}"></a></td>
+        <td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>
+        <td><a th:href="@{/board/${board.id}}" th:text="${board.boardTitle}"></a></td>
         <td th:text="${board.boardWriter}"></td>
-        <td th:text="${#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${board.boardHits}"></td>
     </tr>
     </tbody>
