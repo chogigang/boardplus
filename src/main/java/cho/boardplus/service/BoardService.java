@@ -5,9 +5,11 @@ import cho.boardplus.dto.BoardDTO;
 import cho.boardplus.entity.BoardEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 //DTO -> Entity  (Entity Class)
@@ -26,13 +28,33 @@ public class BoardService {
 
     }
 
-    public List<BoardDTO> findAll() { // 추가
+    public List<BoardDTO> findAll() {//파인드 올은 대부분 엔티티 한태서 온다.
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
-        for (BoardEntity boardEntity: boardEntityList) {
+        for (BoardEntity boardEntity : boardEntityList) {
             boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
-       }
+        }
         return boardDTOList;
 
+    }
+
+    // 게시글 조회수
+    @Transactional
+    public void updateHits(Long id) {
+        boardRepository.updateHits(id);
+    }
+
+
+    //게시글 상세조회
+    @Transactional
+    public BoardDTO findById(Long id) {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
+        if (optionalBoardEntity.isPresent()) {
+            BoardEntity boardEntity = optionalBoardEntity.get();
+            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
+            return boardDTO;
+        } else {
+            return null;
+        }
     }
 }
