@@ -60,5 +60,27 @@ public class BoardController {
         }
 
 
+        //게시글 수정
+@GetMapping("/update/{id}")
+    public String updateForm(@PathVariable Long id,Model model) {
+        BoardDTO boardDTO = boardService.findById(id);
+            model.addAttribute("boardUpdate",boardDTO);
+            return "update";
+
+}       //게시글 수정
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model){
+        BoardDTO board = boardService.update(boardDTO);
+        model.addAttribute("board", board);
+        return "detail";
+      //  return "redirect:/board/"+ boardDTO.getId(); // 이것도 가능
+}
+    //게시글 삭제
+        @GetMapping("/delete/{id}") //추가
+        public String delete(@PathVariable Long id){
+        boardService.delete(id);
+        return "redirect:/board/";
+}
+
 
 }
