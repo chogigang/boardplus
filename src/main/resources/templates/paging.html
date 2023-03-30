@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
 <button onclick="saveReq()">글작성</button>
 
 <table>
-  <tr>
-    <th>id</th>
-    <th>title</th>
-    <th>writer</th>
-    <th>date</th>
-    <th>hits</th>
-  </tr>
-  <tr th:each="board: ${boardList}">
-    <td th:text="${board.id}"></td>
-    <td><a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}" th:text="${board.boardTitle}"></a></td>
-    <td th:text="${board.boardWriter}"></td>
-    <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-    <td th:text="${board.boardHits}"></td>
-  </tr>
+    <tr>
+        <th>id</th>
+        <th>title</th>
+        <th>writer</th>
+        <th>date</th>
+        <th>hits</th>
+    </tr>
+    <tr th:each="board: ${boardList}">
+        <td th:text="${board.id}"></td>
+        <td><a th:href="@{|/board/ ${board.id}|(page=${boardList.number + 1})}" th:text="${board.boardTitle}"></a></td>
+        <td th:text="${board.boardWriter}"></td>
+        <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${board.boardHits}"></td>
+    </tr>
 </table>
 <!-- 첫번째 페이지로 이동 -->
 <!-- /board/paging?page=1 -->
@@ -35,7 +35,7 @@
 <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
 <!-- 현재페이지는 링크 없이 숫자만 -->
     <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
-  <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+    <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
     <span th:unless="${page == boardList.number + 1}">
         <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
     </span>

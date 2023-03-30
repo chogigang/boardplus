@@ -71,7 +71,7 @@ public class BoardService {
 
     //게시글 삭제
     public void delete(Long id) { //추가
-boardRepository.deleteById(id);
+        boardRepository.deleteById(id);
 
     }
     //페이징 처리
