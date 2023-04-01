@@ -1,13 +1,15 @@
 package cho.boardplus.entity;
 
 import cho.boardplus.constant.Role;
-import cho.boardplus.dto.MemberFormDto;
+import cho.boardplus.dto.MemberFormDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+
+
 
 @Entity
 @Table(name ="member")
@@ -24,7 +26,11 @@ public class MemberEntity {
     private String name;
 
     @Column(unique = true)
+    private String email;
+
+
     private String password;
+
 
     private String address;
 
@@ -32,6 +38,19 @@ public class MemberEntity {
     private Role role;
 
 
+
+    public static MemberEntity createMember(MemberFormDTO memberFormDTO, PasswordEncoder passwordEncoder){
+
+        MemberEntity memberEntity =new MemberEntity();
+
+        memberEntity.setName(memberFormDTO.getName());
+        memberFormDTO.setEmail(memberFormDTO.getEmail());
+        memberFormDTO.setAddress(memberFormDTO.getAddress());
+        String password = passwordEncoder.encode(memberFormDTO.getPassword());
+        memberEntity.setPassword(password);
+        memberEntity.setRole(Role.ADMIN);
+        return memberEntity;
+    }
 
 
 }

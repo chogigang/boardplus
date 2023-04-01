@@ -85,7 +85,7 @@ public class BoardController {
     @GetMapping("/delete/{id}") //추가
     public String delete(@PathVariable Long id){
         boardService.delete(id);
-        return "redirect:/board/";
+        return "redirect:/board/paging";
     }
 
     //게시글 페이징
