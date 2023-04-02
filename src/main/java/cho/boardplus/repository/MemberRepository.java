@@ -1,11 +1,11 @@
 package cho.boardplus.repository;
 
-import cho.boardplus.entity.MemberEntity;
+import cho.boardplus.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<MemberEntity,Long> {
+public interface MemberRepository extends JpaRepository<Member,Long> {
 
-    MemberEntity findByEmail(String email);
+    Member findByEmail(String email);
 
 
 

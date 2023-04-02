@@ -1,7 +1,7 @@
 package cho.boardplus.controller;
 
-import cho.boardplus.dto.MemberFormDTO;
-import cho.boardplus.entity.MemberEntity;
+import cho.boardplus.dto.MemberFormDto;
+import cho.boardplus.entity.Member;
 import cho.boardplus.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,24 +21,29 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+
     @GetMapping(value = "/new")
-    public String memberForm(Model model){
-        model.addAttribute("memberFormDto",new MemberFormDTO());
-        return "member/memberForm"; //뷰단으로 리턴
+    public String memberForm(Model model) {
+        model.addAttribute("memberFormDto", new MemberFormDto());
+        return "member/memberForm"; //뷰 단으로 리턴
     }
 
-    @PostMapping(value = "/new") //추가
-    public String newMember(@Valid MemberFormDTO memberFormDTO, BindingResult bindingResult , Model model){
-        if (bindingResult.hasErrors()){
+
+    @PostMapping(value = "/new")
+    public String newMember(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
             return "member/memberForm";
         }
-        try{
-            MemberEntity memberEntity = MemberEntity.createMember(memberFormDTO,passwordEncoder);
-            memberService.saveMember(memberEntity);
-        }catch (IllegalStateException e){
+
+        try {
+            Member member = Member.createMember(memberFormDto, passwordEncoder);
+            memberService.saveMember(member);
+        } catch (IllegalStateException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "member/memberForm";
         }
+
         return "redirect:/";
     }
 

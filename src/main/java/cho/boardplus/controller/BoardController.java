@@ -31,7 +31,7 @@ public class BoardController {
     //글 작성 페이지
     @GetMapping("/save")
     public String writeForm() {
-        return "save";
+        return "board/save";
     }
 
 
@@ -62,7 +62,7 @@ public class BoardController {
         BoardDTO boardDTO =boardService.findById(id);
         model.addAttribute("board",boardDTO);
         model.addAttribute("page",pageable.getPageNumber());
-        return "detail";
+        return "board/detail";
     }
 
 
@@ -71,14 +71,14 @@ public class BoardController {
     public String updateForm(@PathVariable Long id,Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate",boardDTO);
-        return "update";
+        return "board/update";
 
     }       //게시글 수정
     @PostMapping("/update")
     public String update(@ModelAttribute BoardDTO boardDTO, Model model){
         BoardDTO board = boardService.update(boardDTO);
         model.addAttribute("board", board);
-        return "detail";
+        return "board/detail";
         //  return "redirect:/board/"+ boardDTO.getId(); // 이것도 가능
     }
     //게시글 삭제
@@ -110,7 +110,7 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        return "paging";
+        return "board/paging";
     }
 
 

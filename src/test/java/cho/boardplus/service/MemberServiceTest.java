@@ -1,7 +1,7 @@
 package cho.boardplus.service;
 
-import cho.boardplus.dto.MemberFormDTO;
-import cho.boardplus.entity.MemberEntity;
+import cho.boardplus.dto.MemberFormDto;
+import cho.boardplus.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,36 +25,37 @@ public class MemberServiceTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public MemberEntity createMember(){
-        MemberFormDTO memberFormDto = new MemberFormDTO();
+    public Member createMember() {
+        MemberFormDto memberFormDto = new MemberFormDto();
 
         memberFormDto.setEmail("test@email.com");
         memberFormDto.setName("홍길동");
         memberFormDto.setAddress("서울시 마포구 합정동");
         memberFormDto.setPassword("1234");
-        return MemberEntity.createMember(memberFormDto, passwordEncoder);
+        return Member.createMember(memberFormDto, passwordEncoder);
     }
 
 
     @Test
     @DisplayName("회원가입 테스트")
-    public void saveMemberTest(){
+    public void saveMemberTest() {
 
-        MemberEntity memberEntity = createMember();
-        MemberEntity savedMember = memberService.saveMember(memberEntity);
+        Member member = createMember();
+        Member savedMember = memberService.saveMember(member);
 
-        assertEquals(memberEntity.getEmail(), savedMember.getEmail());
-        assertEquals(memberEntity.getName(), savedMember.getName());
-        assertEquals(memberEntity.getAddress(), savedMember.getAddress());
-        assertEquals(memberEntity.getPassword(), savedMember.getPassword());
-        assertEquals(memberEntity.getRole(), savedMember.getRole());
+        assertEquals(member.getEmail(), savedMember.getEmail());
+        assertEquals(member.getName(), savedMember.getName());
+        assertEquals(member.getAddress(), savedMember.getAddress());
+        assertEquals(member.getPassword(), savedMember.getPassword());
+        assertEquals(member.getRole(), savedMember.getRole());
     }
+
 
     @Test
     @DisplayName("중복 회원 가입 테스트")  //추가
     public void saveDuplicateMemberTest(){
-        MemberEntity member1 = createMember();
-        MemberEntity member2 = createMember();
+        Member member1 = createMember();
+        Member member2 = createMember();
         memberService.saveMember(member1);
 
         Throwable e = assertThrows(IllegalStateException.class, () ->{
