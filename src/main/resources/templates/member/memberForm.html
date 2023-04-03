@@ -11,13 +11,16 @@
     <input type="text" id="name" name="name" th:field="*{name}" required>
     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 
+<div></div>
     <label for="email">이메일주소:</label>
     <input type="email" id="email" name="email" th:field="*{email}" required>
     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 
+<div></div>
     <label for="password">비밀번호:</label>
     <input type="password" id="password" name="password" th:field="*{password}" required>
     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+<div></div>
 
     <label for="address">주소:</label>
     <input type="text" id="address" name="address" th:field="*{address}" required>
