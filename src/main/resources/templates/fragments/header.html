@@ -16,7 +16,7 @@
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
         <li class="nav-board" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-          <a class="nav-link" href="/board/save">게시글등록</a>
+          <a class="nav-link" href="/board/admin/save">게시글등록</a>
         </li>
         <li class="nav-board" sec:authorize="isAuthenticated()">
           <a class="nav-link" href="board/paging">게시판목록</a>
