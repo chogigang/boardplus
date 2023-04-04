@@ -25,7 +25,7 @@
 </table>
 <!-- 첫번째 페이지로 이동 -->
 <!-- /board/paging?page=1 -->
-<a th:href="@{/board/lsit(page=1)}">처음</a>
+<a th:href="@{/board/paging(page=1)}">처음</a>
 <!-- 이전 링크 활성화 비활성화 -->
 <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
 <a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">이전</a>

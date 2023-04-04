@@ -35,37 +35,12 @@
     </th:block>
 </head>
 <body>
-<div layout:fragment="content"> <!-- <div layout:fragment="content">  제외 나머지 삭제 해도 상관무-->
+<div layout:fragment="content">
 
-    <button onclick="saveReq()">글작성</button> <!-- 삭제해도 상관없음-->
-<button onclick="listReq()">글목록</button>
-<button onclick="pagingReq()">페이징목록</button>
-<button id="loginBtn" onclick="loginReq()">로그인</button>
+게시판 메인페이지 입니다.
 
-    <button id="logoutBtn" onclick="logoutReq()">로그아웃 </button>
 
-</div> <!-- /div 를 제외 나머지 밑 함수 코드들 다 삭제해도 상관무-->
+</div>
 </body>
-<script>
-  const saveReq = () => {
-    location.href = "/board/save";
-  }
-  const listReq = () => {
-    location.href = "/board/paging";
-  }
-  const pagingReq = () => {
-    location.href = "/board/paging";
-  }
-  const loginReq = () => {
-    location.href = "/members/login";
-  }
-  const logoutReq = () => {
-    fetch('/members/logout', { method: 'POST' })
-      .then(() => location.reload())
-      .catch(error => console.error(error));
-  }
 
-
-</script>
-<!-- 여기까지 삭제 해도 상관무-->
 </html>
