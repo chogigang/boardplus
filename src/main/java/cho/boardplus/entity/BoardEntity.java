@@ -19,7 +19,7 @@ public class BoardEntity  extends BaseEntity {
     @Column(length = 20, nullable = false)//크기 20, not null
     private String boardWriter;// 글 작성자
 
-    @Column
+    @Column(nullable = false)
     private String boardTitle; //제목
 
     @Column(length = 500)

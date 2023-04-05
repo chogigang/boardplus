@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/board")
 @Controller
+
 public class BoardController {
 
     private final BoardService boardService;
@@ -29,14 +31,16 @@ public class BoardController {
     }
 
     //글 작성 페이지
-    @GetMapping(value = "/admin/save")//admin 추가
+    @GetMapping(value = "/save")
     public String writeForm() {
+
         return "board/save";
     }
 
 
     // 글작성 컨트롤러
-    @PostMapping(value = "/admin/save")//admin 추가
+
+    @PostMapping(value = "/save")
     public String save(@ModelAttribute BoardDTO boardDTO) {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
@@ -67,14 +71,14 @@ public class BoardController {
 
 
     //게시글 수정
-    @GetMapping(value = "/admin/update/{id}")//admin 추가
+    @GetMapping(value = "/update/{id}")
     public String updateForm(@PathVariable Long id,Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate",boardDTO);
         return "board/update";
 
-    }       //게시글 수정
-    @PostMapping(value = "/admin/update")//admin 추가
+    }      //게시글 수정
+    @PostMapping(value = "/update")//admin 추가
     public String update(@ModelAttribute BoardDTO boardDTO, Model model){
         BoardDTO board = boardService.update(boardDTO);
         model.addAttribute("board", board);
@@ -82,7 +86,7 @@ public class BoardController {
         //  return "redirect:/board/"+ boardDTO.getId(); // 이것도 가능
     }
     //게시글 삭제
-    @GetMapping(value = "/admin/delete/{id}")//admin 추가
+    @GetMapping(value = "/delete/{id}")
     public String delete(@PathVariable Long id){
         boardService.delete(id);
         return "redirect:/board/paging";
@@ -106,7 +110,7 @@ public class BoardController {
 //         7 8 9
 //         보여지는 페이지 갯수 는 3
         // 총 페이지 갯수 8개
-        model.addAttribute("boardList", boardDTOList); //추가
+        model.addAttribute("boardList", boardDTOList);
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
