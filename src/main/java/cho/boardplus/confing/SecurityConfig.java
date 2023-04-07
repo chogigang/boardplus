@@ -34,19 +34,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
         ;
 
-        http.authorizeRequests()//페이지 권한 추가
+        http.authorizeRequests()//페이지 권한 설정
+
                 .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .mvcMatchers("/", "/members/**", "/board/**", "/images/**").permitAll()//
+                .mvcMatchers("/", "/members/**", "/board/paging","/board/{id}","/board/save", "/images/**").permitAll()//
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()//
+                .anyRequest().authenticated()
         ;
+        http.csrf().disable();//csrf 토큰 방어 중지
 
-
-        http.exceptionHandling()//페이지 권한 추가
+        http.exceptionHandling()//페이지 권한
                 .authenticationEntryPoint
                         (new CustomAuthenticationEntryPoint())
         ;
-        http.csrf().disable();
+
+
     }
 
 

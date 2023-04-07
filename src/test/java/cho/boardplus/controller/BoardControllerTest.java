@@ -25,14 +25,14 @@ public class BoardControllerTest {
     @DisplayName("게시글 등록 테스트")
     @WithMockUser(username = "admin",roles = "ADMIN")
     public void boardwriteTest() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.get("/board/admin/save")).andDo(print()).andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/admin/board/save")).andDo(print()).andExpect(status().isOk());
 
     }
     @Test
     @DisplayName("게시글 일반 회원 접근 테스트")
     @WithMockUser(username = "user",roles = "USER")
     public void boardFormNotAdminTest() throws Exception{
-    mockMvc.perform(MockMvcRequestBuilders.get("/board/admin/save")).andDo(print()).andExpect(status().isForbidden());
+    mockMvc.perform(MockMvcRequestBuilders.get("/admin/board/save")).andDo(print()).andExpect(status().isForbidden());
 
 }
 

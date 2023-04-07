@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -30,22 +31,17 @@ public class BoardController {
         return "index";
     }
 
-    //글 작성 페이지
-    @GetMapping(value = "/save")
-    public String writeForm() {
-
+    //글작성 페이지
+    @GetMapping("/save")
+    public String saveForm() {
         return "board/save";
     }
-
-
-    // 글작성 컨트롤러
-
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute BoardDTO boardDTO) {
+        // 글작성
+    @PostMapping("/save")
+    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
-        return "index"; //index 로 변경
-
+        return "index";
     }
 
 

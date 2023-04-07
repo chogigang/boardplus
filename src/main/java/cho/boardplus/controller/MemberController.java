@@ -25,7 +25,7 @@ public class MemberController {
     @GetMapping(value = "/new")
     public String memberForm(Model model) {
         model.addAttribute("memberFormDto", new MemberFormDto());
-        return "member/memberForm"; //뷰 단으로 리턴
+        return "member/memberForm";
     }
 
 

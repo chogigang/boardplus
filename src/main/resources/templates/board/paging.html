@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<button onclick="saveReq()">글작성</button>
-
+<!--<button onclick="saveReq()">글작성</button>-->
+<button class="nav-board" sec:authorize="isAuthenticated()">
+    <a class="nav-link" href="/board/save">게시글작성</a>
+</button>
 <table>
     <tr>
         <th>id</th>
