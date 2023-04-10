@@ -1,6 +1,7 @@
 package cho.boardplus.dto;
 
 import cho.boardplus.entity.BoardEntity;
+import cho.boardplus.entity.Member;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class BoardDTO {
     private LocalDateTime boardCreatedTime; //게시글 작성 시간
     private LocalDateTime boardUpdatedTime; // 게시글 수정시간
 
-
+    private Member member;//회원
 
     //DTO 를 엔티티로 변환
     public static BoardDTO toBoardDTO(BoardEntity boardEntity) {
@@ -34,6 +35,7 @@ public class BoardDTO {
         boardDTO.setBoardHits(boardEntity.getBoardHits());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
+        boardDTO.setMember(boardEntity.getMember());
         return boardDTO;
         
     }

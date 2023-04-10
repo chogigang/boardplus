@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()//페이지 권한 설정
 
                 .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .mvcMatchers("/", "/members/**", "/board/paging","/board/{id}","/board/save", "/images/**").permitAll()//
+                .mvcMatchers("/", "/members/**", "/board/paging","/board/{id}", "/images/**").permitAll()//
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         ;
@@ -68,3 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+
+/*
+csrf 토큰 권한 문제가 생겨서 토큰 사용중지하고 로그인 을 통해 버튼을 활성화 비활성화 시키면서 보안을 유지시킬 계획으로 변경했습니다.
+
+*/

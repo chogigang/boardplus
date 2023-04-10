@@ -28,6 +28,10 @@ public class BoardEntity  extends BaseEntity {
     @Column
     private int boardHits;//조회수
 
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member; //  회원 추가
+
 
 
   //entity 를 DTO 로 변환하는 작업
@@ -37,9 +41,12 @@ public class BoardEntity  extends BaseEntity {
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setMember(boardDTO.getMember()); //맴버 추가
         boardEntity.setBoardHits(0);
         return boardEntity;
     }
+
+
 
     //게시글 수정 엔티티 DTO 변환
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
@@ -47,6 +54,7 @@ public class BoardEntity  extends BaseEntity {
         boardEntity.setId(boardDTO.getId());
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+        boardEntity.setMember(boardDTO.getMember()); //맴버 추가
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(boardDTO.getBoardHits());
         return boardEntity;
