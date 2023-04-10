@@ -16,8 +16,6 @@ public class BoardEntity  extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;  //id 값
 
-    @Column(length = 20, nullable = false)//크기 20, not null
-    private String boardWriter;// 글 작성자
 
     @Column(nullable = false)
     private String boardTitle; //제목
@@ -28,7 +26,7 @@ public class BoardEntity  extends BaseEntity {
     @Column
     private int boardHits;//조회수
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; //  회원 추가
 
@@ -38,10 +36,9 @@ public class BoardEntity  extends BaseEntity {
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setMember(boardDTO.getMember()); //멤버 추가
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setMember(boardDTO.getMember()); //맴버 추가
         boardEntity.setBoardHits(0);
         return boardEntity;
     }
@@ -52,12 +49,14 @@ public class BoardEntity  extends BaseEntity {
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setId(boardDTO.getId());
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setMember(boardDTO.getMember()); //멤버 추가
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
-        boardEntity.setMember(boardDTO.getMember()); //맴버 추가
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(boardDTO.getBoardHits());
         return boardEntity;
 
     }
 }
+
+
+

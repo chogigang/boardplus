@@ -3,6 +3,7 @@ package cho.boardplus.service;
 import cho.boardplus.repository.BoardRepository;
 import cho.boardplus.dto.BoardDTO;
 import cho.boardplus.entity.BoardEntity;
+import cho.boardplus.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
     //작성
     public void save(BoardDTO boardDTO) {
@@ -32,7 +34,7 @@ public class BoardService {
 
     }
 
-    public List<BoardDTO> findAll() {//파인드 올은 대부분 엔티티 한태서 온다.
+    public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
         for (BoardEntity boardEntity : boardEntityList) {
@@ -97,9 +99,10 @@ public class BoardService {
 
         //엔티티 객체를 옮겨서 DTO 로 변환하면서 위 객체들을 옮겨주는 것
         //목록 id, writer, title, hist,createdTime
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(),board.getCreatedTime()));
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(),board.getMember(),board.getBoardTitle(), board.getBoardHits(),board.getCreatedTime()));
         return boardDTOS;
     }
+
 
 
 }

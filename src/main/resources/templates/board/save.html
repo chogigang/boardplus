@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<!--    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>-->
 
-    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+<!--    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>-->
     <script>
 
     </script>
@@ -14,13 +14,14 @@
 </head>
 <body>
 <form action="/board/save" method="post" enctype="multipart/form-data">
-    작성자: <input type="text" name="boardWriter" required> <br>
+<!--    작성자: <input type="text" name="boardWriter" required> <br>-->
     제목: <input type="text" name="boardTitle" required> <br>
     내용: <textarea name="boardContents" cols="30" rows="10" required></textarea> <br>
     파일: <input type="file" name="boardFile" multiple> <br>
     <input type="submit" value="글작성">
     <button th:formaction="@{/board/save}" type="submit" class="btn btn-primary">글작성2</button>
-<!--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">-->
+    <input type="hidden" name="board.memberId" value="${board.member.id}" />
+    <!--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">-->
 
 </form>
 </body>
