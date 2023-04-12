@@ -1,12 +1,12 @@
 package cho.boardplus.controller;
 
 import cho.boardplus.dto.BoardDTO;
+import cho.boardplus.entity.Member;
 import cho.boardplus.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +37,11 @@ public class BoardController {
         return "board/save";
     }
         // 글작성
+
+
     @PostMapping("/save")
-    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
+    public String save(@ModelAttribute BoardDTO boardDTO, @RequestParam("member_id") Member member_id) throws IOException {
+        boardDTO.getMember().setId(member_id.getId());
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";

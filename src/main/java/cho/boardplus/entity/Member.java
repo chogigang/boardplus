@@ -1,5 +1,4 @@
 package cho.boardplus.entity;
-
 import cho.boardplus.constant.Role;
 import cho.boardplus.dto.MemberFormDto;
 import lombok.Getter;
@@ -8,6 +7,8 @@ import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="member")
@@ -19,6 +20,7 @@ public class Member extends BaseEntity {
     @Id
     @Column(name="member_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
 
     private String name;
@@ -30,8 +32,12 @@ public class Member extends BaseEntity {
 
     private String address;
 
+    @OneToMany(mappedBy = "member")
+    private List<BoardEntity> boardEntities= new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();

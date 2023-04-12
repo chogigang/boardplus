@@ -1,6 +1,7 @@
 package cho.boardplus.entity;
 
 import cho.boardplus.dto.BoardDTO;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,7 @@ public class BoardEntity  extends BaseEntity {
 
     @Column
     private int boardHits;//조회수
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

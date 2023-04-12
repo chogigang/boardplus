@@ -22,7 +22,6 @@ public class BoardDTO {
     private int boardHits; //조회수
     private LocalDateTime boardCreatedTime; //게시글 작성 시간
     private LocalDateTime boardUpdatedTime; // 게시글 수정시간
-
     private Member member;//회원
     //DTO 를 엔티티로 변환
     public static BoardDTO toBoardDTO(BoardEntity boardEntity) {
