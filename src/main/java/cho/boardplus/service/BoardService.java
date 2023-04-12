@@ -31,7 +31,6 @@ public class BoardService {
     public void save(BoardDTO boardDTO) {
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
         boardRepository.save(boardEntity);
-
     }
 
     public List<BoardDTO> findAll() {
@@ -99,7 +98,7 @@ public class BoardService {
 
         //엔티티 객체를 옮겨서 DTO 로 변환하면서 위 객체들을 옮겨주는 것
         //목록 id, writer, title, hist,createdTime
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(),board.getMember(),board.getBoardTitle(), board.getBoardHits(),board.getCreatedTime()));
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(),board.getCreatedTime()));
         return boardDTOS;
     }
 

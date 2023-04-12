@@ -40,8 +40,7 @@ public class BoardController {
 
 
     @PostMapping("/save")
-    public String save(@ModelAttribute BoardDTO boardDTO, @RequestParam("member_id") Member member_id) throws IOException {
-        boardDTO.getMember().setId(member_id.getId());
+    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";

@@ -21,12 +21,13 @@ public class BoardEntity  extends BaseEntity {
     @Column(nullable = false)
     private String boardTitle; //제목
 
+    @Column(length = 20) // 크기 20
+    private String boardWriter; //작성자
     @Column(length = 500)
     private String boardContents; //내용
 
     @Column
     private int boardHits;//조회수
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -34,11 +35,11 @@ public class BoardEntity  extends BaseEntity {
 
 
 
-  //entity 를 DTO 로 변환하는 작업
+    //entity 를 DTO 로 변환하는 작업
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setMember(boardDTO.getMember()); //멤버 추가
+        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
@@ -51,6 +52,7 @@ public class BoardEntity  extends BaseEntity {
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setId(boardDTO.getId());
+        boardEntity.setBoardWriter(boardDTO.getBoardWriter()); //작성자
         boardEntity.setMember(boardDTO.getMember()); //멤버 추가
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());

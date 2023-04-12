@@ -18,6 +18,8 @@ public class BoardDTO {
     private Long id; //게시글 id
 
     private String boardTitle; // 게시글 이름
+
+    private String boardWriter; //작성자
     private String boardContents; //게시글 내용
     private int boardHits; //조회수
     private LocalDateTime boardCreatedTime; //게시글 작성 시간
@@ -28,19 +30,20 @@ public class BoardDTO {
         BoardDTO boardDTO = new BoardDTO();
         boardDTO.setId(boardEntity.getId());
         boardDTO.setBoardTitle(boardEntity.getBoardTitle());
+        boardDTO.setMember(boardEntity.getMember());// 회원
+        boardDTO.setBoardWriter(boardEntity.getBoardWriter()); //작성자
         boardDTO.setBoardContents(boardEntity.getBoardContents());
         boardDTO.setBoardHits(boardEntity.getBoardHits());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
-        boardDTO.setMember(boardEntity.getMember());
         return boardDTO;
         
     }
 
     //개시글 페이징용
-    public BoardDTO(Long id, Member member, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
+    public BoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
         this.id = id;
-        this.member = member;
+        this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
         this.boardHits = boardHits;
         this.boardCreatedTime = boardCreatedTime;
