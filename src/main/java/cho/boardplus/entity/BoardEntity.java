@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,6 +31,14 @@ public class BoardEntity  extends BaseEntity {
     @Column
     private int boardHits;//조회수
 
+    @Column
+    private int fileAttached; //  파일 1 or 0
+
+    @OneToMany(mappedBy = "boardEntity",cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<BoardFileEntity> boardFileEntityList =new ArrayList<>();
+
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; //  회원 추가
@@ -43,10 +53,10 @@ public class BoardEntity  extends BaseEntity {
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
+        boardEntity.setFileAttached(0);//파일 없음
         return boardEntity;
+
     }
-
-
 
     //게시글 수정 엔티티 DTO 변환
     public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
@@ -60,6 +70,16 @@ public class BoardEntity  extends BaseEntity {
         return boardEntity;
 
     }
+    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO){
+        BoardEntity boardEntity =new BoardEntity();
+        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+        boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardHits(0);
+        boardEntity.setFileAttached(1);// 파일 없음.
+        return boardEntity;
+    }
+
+
 }
 
 

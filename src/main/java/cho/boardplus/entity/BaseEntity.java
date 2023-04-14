@@ -25,10 +25,10 @@ public abstract class BaseEntity  {
 
     @CreatedBy
     @Column(updatable = false)
-    private String createdBy;
+    private String createdBy; //작성시 회원 아이디 자동 체크
 
     @LastModifiedBy
-    private String modifiedBy;
+    private String modifiedBy; // 수정시 회원 아이디 자동 체크
 
 
     @CreationTimestamp //생성했을때 시간 체크
