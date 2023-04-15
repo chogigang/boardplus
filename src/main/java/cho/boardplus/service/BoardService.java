@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,25 @@ public class BoardService {
 
     //작성
     public void save(BoardDTO boardDTO) {
-        BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
-        boardRepository.save(boardEntity);
+        if(boardDTO.getBoardFile().isEmpty()) {
+           BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+           boardRepository.save(boardEntity);
+       }else {
+            BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+            Long savedId = boardRepository.save(boardEntity).getId();
+            BoardEntity board = boardRepository.findById(savedId).get();
+            for(MultipartFile boardFile: boardDTO.getBoardFile()){
+
+                String originalFilename = boardFile.getOriginalFilename();//  2
+                String storedFileName =System.currentTimeMillis() +"_"+originalFilename; // 3
+
+            }
+
+            }
     }
+
+
+
 
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
