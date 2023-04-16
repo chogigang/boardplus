@@ -30,11 +30,10 @@ public class BoardService {
 
     //작성
     public void save(BoardDTO boardDTO) {
+        BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
         if(boardDTO.getBoardFile().isEmpty()) {
-           BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
-           boardRepository.save(boardEntity);
+            boardRepository.save(boardEntity);
        }else {
-            BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
             Long savedId = boardRepository.save(boardEntity).getId();
             BoardEntity board = boardRepository.findById(savedId).get();
             for(MultipartFile boardFile: boardDTO.getBoardFile()){
