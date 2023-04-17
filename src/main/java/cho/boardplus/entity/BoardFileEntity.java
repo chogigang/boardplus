@@ -1,6 +1,7 @@
 package cho.boardplus.entity;
 
 import cho.boardplus.constant.AttachmentType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,28 +15,30 @@ public class BoardFileEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;  //파일번호
-
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="board_id")
     private BoardEntity boardEntity;   //게시판 번호
 
-    @Column
+    private String fileName; //파일 이름
+    @Column(nullable = false)
     private String originalFileName;  //원본 파일 이름
-    @Column
-    private String storedFileName;  //변경된 파일 이름
+    @Column(nullable = false)
+    private String storedFileName;  //서버에 변경된 파일 이름
+
+    private String fileUrl; //이미지 조회 경로
 
     @Enumerated(EnumType.STRING)
-    private AttachmentType attachmentType; // Enum 타입의 필드를 매핑
+    private AttachmentType attachmentType; // Enum 타입의 필드를 매핑 파일인지,이미지인지 구분하기 위한 맵핑
 
 
-    public static BoardEntity toBoardFileEntity(BoardEntity boardEntity, String originalFileName, String storedFileName,AttachmentType attachmentType){
-        BoardFileEntity boardFileEntity = new BoardFileEntity();
-        boardFileEntity.setOriginalFileName(originalFileName);
-        boardFileEntity.setStoredFileName(storedFileName);
-        boardFileEntity.setAttachmentType(attachmentType.IMAGE); //파일 업로드 타입
-        boardFileEntity.setBoardEntity(boardEntity);
-        return boardEntity;
+        @Builder
+        public void updateBoardFile(String originalFileName, String fileName,String fileUrl){
+        this.fileName = fileName;
+        this.originalFileName = originalFileName;
+        this.fileUrl = fileUrl;
 
     }
-}
+
+    }
+

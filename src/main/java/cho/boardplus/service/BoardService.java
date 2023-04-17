@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,26 +30,15 @@ public class BoardService {
     private final MemberRepository memberRepository;
 
     //작성
-    public void save(BoardDTO boardDTO) {
+    public void save(BoardDTO boardDTO)  {
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
-        if(boardDTO.getBoardFile().isEmpty()) {
             boardRepository.save(boardEntity);
-       }else {
-            Long savedId = boardRepository.save(boardEntity).getId();
-            BoardEntity board = boardRepository.findById(savedId).get();
-            for(MultipartFile boardFile: boardDTO.getBoardFile()){
 
-                String originalFilename = boardFile.getOriginalFilename();//  2
-                String storedFileName =System.currentTimeMillis() +"_"+originalFilename; // 3
-
-            }
-
-            }
     }
 
 
 
-
+    @Transactional
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
