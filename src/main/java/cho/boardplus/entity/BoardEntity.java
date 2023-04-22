@@ -2,6 +2,7 @@ package cho.boardplus.entity;
 
 import cho.boardplus.dto.BoardDTO;
 
+import cho.boardplus.dto.BoardFileDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +44,7 @@ public class BoardEntity  extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member; //  회원 추가
 
-
+    private List<BoardFileDTO> boardFileDTOList;
 
     //entity 를 DTO 로 변환하는 작업
 

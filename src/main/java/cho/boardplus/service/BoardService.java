@@ -37,7 +37,7 @@ public class BoardService {
     }
 
 
-
+        // 게시글 리스트 
     @Transactional
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
@@ -77,18 +77,18 @@ public class BoardService {
     }
 
     //게시글 삭제
-    public void delete(Long id) { //추가
+    public void delete(Long id) {
         boardRepository.deleteById(id);
 
     }
     //페이징 처리
     public Page<BoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() -1;
-        int pageLinit = 8; // 한페이지 보여줄 글 갯수
+        int pageLimit = 8; // 한페이지 보여줄 글 갯수
 
         //한페이지당 n 개글씩 보여주고 정렬기준은 id 기준으로 내림차순  정렬
         Page<BoardEntity> boardEntities= //          몇페이지, 한페이지 여줄 글 갯수,어떻게 정렬해서 가져올거냐 전체를 여기 기준으로  해당페이지값을 가저온다
-                boardRepository.findAll(PageRequest.of(page, pageLinit, Sort.by(Sort.Direction.DESC,"id")));// Sort.Direction 내림차순 id 는 엔티티 의 작성한 이름 기준
+                boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC,"id")));// Sort.Direction 내림차순 id 는 엔티티 의 작성한 이름 기준
 
 
 
