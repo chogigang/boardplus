@@ -36,16 +36,16 @@ public class BoardController {
     public String saveForm() {
         return "board/save";
     }
-        // 글작성
 
 
+    // 글작성
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "index";
     }
-
+    
 
     // 게시글 목록
 //    @GetMapping("/")
@@ -75,7 +75,8 @@ public class BoardController {
         model.addAttribute("boardUpdate",boardDTO);
         return "board/update";
 
-    }      //게시글 수정
+    }
+    //게시글 수정
     @PostMapping(value = "/update")//admin 추가
     public String update(@ModelAttribute BoardDTO boardDTO, Model model){
         BoardDTO board = boardService.update(boardDTO);

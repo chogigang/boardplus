@@ -2,7 +2,6 @@ package cho.boardplus.entity;
 
 import cho.boardplus.dto.BoardDTO;
 
-import cho.boardplus.dto.BoardFileDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,7 +43,7 @@ public class BoardEntity  extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member; //  회원 추가
 
-    private List<BoardFileDTO> boardFileDTOList;
+
 
     //entity 를 DTO 로 변환하는 작업
 
@@ -54,7 +53,7 @@ public class BoardEntity  extends BaseEntity {
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
-        boardEntity.setFileAttached(0);//파일 없음
+       boardEntity.setFileAttached(1);//파일 없음
         return boardEntity;
 
     }
@@ -70,14 +69,6 @@ public class BoardEntity  extends BaseEntity {
         boardEntity.setBoardHits(boardDTO.getBoardHits());
         return boardEntity;
 
-    }
-    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO){
-        BoardEntity boardEntity =new BoardEntity();
-        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
-        boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setBoardHits(0);
-        boardEntity.setFileAttached(1);// 파일 없음.
-        return boardEntity;
     }
 
 

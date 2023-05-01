@@ -28,6 +28,7 @@ public class BoardFileEntity extends BaseEntity{
 
     private String fileUrl; //이미지 조회 경로
 
+
     @Enumerated(EnumType.STRING)
     private AttachmentType attachmentType; // Enum 타입의 필드를 매핑 파일인지,이미지인지 구분하기 위한 맵핑
 

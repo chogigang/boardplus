@@ -4,6 +4,7 @@ import cho.boardplus.entity.BoardEntity;
 import cho.boardplus.entity.BoardFileEntity;
 import cho.boardplus.entity.Member;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,17 +31,15 @@ public class BoardDTO {
     private LocalDateTime boardUpdatedTime; // 게시글 수정시간
     private Member member;//회원
 
-    private List<BoardFileDTO> boardFileDTOList;
+    private List<BoardFileDTO> boardFileDTOList = new ArrayList<>();
+    private List<Long> boardImgIds= new ArrayList<>(); //미지 파일의 ID를 저장하는 List item 엔티티로 메핑될 때 사용될것 게시판 등록,수정 같이 이미지를 선택적으로 추가할 수 있는 경우 사용
 
-
+    private static ModelMapper modelMapper = new ModelMapper();
 
 //    //게시글 파일 첨부
 //    private List<MultipartFile>boardFile; //첨부파일 스프링 인터페이스. save.html - > Controller 파일을 담는 용도  , 보드 컨트롤러 만 적용
 //    private List<String> originalFileName; //원본 파일 이름     ,나머지는 보드 서비스에 적용
 //    private List<String> storedFileName; // 서버 저장용 파일 이름
-   private int  fileAttached; //파일 첨부 여부(첨부 1 , 미첨부 0) 이거 안하면 나중에 귀찮게 많이 설정들을 해줘야함
-
-
 
 
 
@@ -53,21 +52,13 @@ public class BoardDTO {
         boardDTO.setMember(boardEntity.getMember());// 회원
         boardDTO.setBoardWriter(boardEntity.getBoardWriter()); //작성자
         boardDTO.setBoardContents(boardEntity.getBoardContents());
-                                                                         //파일 업로드
         boardDTO.setBoardHits(boardEntity.getBoardHits());
+
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
 
-        List<BoardFileDTO> boardFileDTOList = new ArrayList<>();
-        for (BoardFileEntity boardFileEntity : boardEntity.getBoardFileEntityList()) {
-            BoardFileDTO boardFileDTO = BoardFileDTO.of(boardFileEntity);
-            boardFileDTOList.add(boardFileDTO);
-        }
-        boardDTO.setBoardFileDTOList(boardFileDTOList);
-
-
         return boardDTO;
-        
+
     }
 
     //개시글 페이징용
@@ -78,7 +69,21 @@ public class BoardDTO {
         this.boardHits = boardHits;
         this.boardCreatedTime = boardCreatedTime;
 
-
     }
+
+        // 게시글 작성시 사용하는 model Mapper
+
+
+    // DTO를 엔티티로 변환 하는 것
+public BoardEntity createBoard(){
+        return modelMapper.map(this,BoardEntity.class);
+}
+ // Entity 를 DTO 객체로 변환
+public static BoardDTO of(BoardEntity boardEntity){
+    return modelMapper.map(boardEntity,BoardDTO.class);
+
+}
+
+
 
 }
