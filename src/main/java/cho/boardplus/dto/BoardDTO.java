@@ -5,6 +5,7 @@ import cho.boardplus.entity.BoardFileEntity;
 import cho.boardplus.entity.Member;
 import lombok.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class BoardDTO {
     private LocalDateTime boardCreatedTime; //게시글 작성 시간
     private LocalDateTime boardUpdatedTime; // 게시글 수정시간
     private Member member;//회원
+
+    private List<MultipartFile> attachments; // 첨부 파일 리스트 필드
 
     private List<BoardFileDTO> boardFileDTOList = new ArrayList<>();
     private List<Long> boardImgIds= new ArrayList<>(); //미지 파일의 ID를 저장하는 List item 엔티티로 메핑될 때 사용될것 게시판 등록,수정 같이 이미지를 선택적으로 추가할 수 있는 경우 사용

@@ -1,5 +1,7 @@
 package cho.boardplus.service;
 
+import cho.boardplus.dto.BoardFileDTO;
+import cho.boardplus.entity.BoardFileEntity;
 import cho.boardplus.repository.BoardRepository;
 import cho.boardplus.dto.BoardDTO;
 import cho.boardplus.entity.BoardEntity;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 //DTO -> Entity  (Entity Class)
@@ -27,17 +30,24 @@ import java.util.Optional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final MemberRepository memberRepository;
+
+    private final BoardImgService boardImgService;
 
     //작성
-    public void save(BoardDTO boardDTO)  {
+    public void save(BoardDTO boardDTO, List<MultipartFile> boardImgFileList) throws Exception {
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+        if (boardImgFileList == null || boardImgFileList.isEmpty() && boardDTO.getBoardFileDTOList().isEmpty()) {
             boardRepository.save(boardEntity);
-
+        } else {
+            for (int i = 0; i < boardImgFileList.size(); i++) {
+                BoardFileEntity boardFileEntity = new BoardFileEntity();
+                boardFileEntity.setBoardEntity(boardEntity);
+                boardImgService.saveBoardImg(boardFileEntity, boardImgFileList.get(i));
+            }
+        }
     }
 
-
-        // 게시글 리스트 
+        // 게시글 리스트
     @Transactional
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();

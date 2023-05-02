@@ -33,8 +33,8 @@
     <th>contents</th>
     <td th:text="${board.boardContents}"></td>
   </tr>
-
-
+<!--파일 업로드 -->
+  <img th:if="${board.attachments.size() > 0}" th:each="attachment : ${board.attachments}" th:src="@{'/board/file/'+${attachment.id}}" width="100%">
 </table>
 <button onclick="listReq()">목록</button>
 <button onclick="updateReq()">수정</button> <!-- 추가 밑에  updateReq = () => { 내용도 추가.-->

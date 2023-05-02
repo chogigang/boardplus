@@ -40,12 +40,12 @@ public class BoardController {
 
     // 글작성
     @PostMapping("/save")
-    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
+    public String save(@ModelAttribute BoardDTO boardDTO) throws Exception {
         System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO);
+        boardService.save(boardDTO,boardDTO.getAttachments());
         return "index";
     }
-    
+
 
     // 게시글 목록
 //    @GetMapping("/")
@@ -57,6 +57,7 @@ public class BoardController {
 //        return "list";
 //    }
     //게시글 조회
+
     @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model,
                            @PageableDefault(page =1) Pageable pageable){
