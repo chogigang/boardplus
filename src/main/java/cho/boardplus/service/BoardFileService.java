@@ -24,6 +24,7 @@ public class BoardFileService {
         return savedFile;
 
     }
+
         //파일 삭제
     public void deleteFile(String filePath)throws Exception{
         File deleteFile = new File(filePath);

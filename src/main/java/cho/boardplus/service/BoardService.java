@@ -36,6 +36,7 @@ public class BoardService {
     //작성
     public void save(BoardDTO boardDTO, List<MultipartFile> boardImgFileList) throws Exception {
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+
         if (boardImgFileList == null || boardImgFileList.isEmpty() && boardDTO.getBoardFileDTOList().isEmpty()) {
             boardRepository.save(boardEntity);
         } else {

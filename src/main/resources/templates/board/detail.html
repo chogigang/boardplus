@@ -33,8 +33,17 @@
     <th>contents</th>
     <td th:text="${board.boardContents}"></td>
   </tr>
-<!--파일 업로드 -->
-  <img th:if="${board.attachments.size() > 0}" th:each="attachment : ${board.attachments}" th:src="@{'/board/file/'+${attachment.id}}" width="100%">
+<!--&lt;!&ndash;파일 업로드 &ndash;&gt;-->
+<!--  <img th:if="${board.attachments.size() > 0}" th:each="attachment : ${board.attachments}" th:src="@{'/board/file/'+${attachment.id}}" width="100%">-->
+
+  <tr th:if="${board.fileAttached == 1}">
+    <th>image</th>
+    <td td th:each="fileName: ${board.storedFileName}">
+      <img th:src="@{/C/board/file/${board.storedFileName}}" alt="" width="200" height="200">
+    </td>
+  </tr>
+
+
 </table>
 <button onclick="listReq()">목록</button>
 <button onclick="updateReq()">수정</button> <!-- 추가 밑에  updateReq = () => { 내용도 추가.-->
