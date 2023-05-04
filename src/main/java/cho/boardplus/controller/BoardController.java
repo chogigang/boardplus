@@ -42,7 +42,7 @@ public class BoardController {
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws Exception {
         System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO,boardDTO.getAttachments());
+        boardService.save(boardDTO);
         return "index";
     }
 

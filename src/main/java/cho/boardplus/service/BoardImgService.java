@@ -31,10 +31,10 @@ public class BoardImgService {
         if(!StringUtils.isEmpty(oriImgName)){
             imgName=boardFileService.uploadFile(image_fileUploadPath,oriImgName,
                     boardImgFile.getBytes());
-            imgUrl= "/board/item" +imgName;  //배포시 경로 수정 필요
+            imgUrl= "/board/" +imgName;  //배포시 경로 수정 필요
         }
         // 정보 저장
-        boardFileEntity.updateBoardFile(oriImgName,imgName,imgUrl);
+        boardFileEntity.BoardFileUpload(oriImgName,imgName,imgUrl);
         boardFileRepository.save(boardFileEntity);
 
     }

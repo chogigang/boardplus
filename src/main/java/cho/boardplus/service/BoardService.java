@@ -2,6 +2,7 @@ package cho.boardplus.service;
 
 import cho.boardplus.dto.BoardFileDTO;
 import cho.boardplus.entity.BoardFileEntity;
+import cho.boardplus.repository.BoardFileRepository;
 import cho.boardplus.repository.BoardRepository;
 import cho.boardplus.dto.BoardDTO;
 import cho.boardplus.entity.BoardEntity;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,27 +28,56 @@ import java.util.stream.Collectors;
 //Entity -> DTO (DTO Class)
 
 @Service
+@org.springframework.transaction.annotation.Transactional
 @RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    private final BoardImgService boardImgService;
+    private final BoardFileService boardFileService;
+    private final BoardFileRepository boardFileRepository;
+
+//    private final BoardImgService boardImgService;
+
+//      if(boardDTO.getBoardFile().isEmpty()){
+//        BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+//        boardRepository.save(boardEntity);
+//
+//    }else {
+//        BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);//첨부 파일이 단일 이면 맨 밑 다중파일이면 맨위로 올라오고 for문을 사용한다
+//        Long savedId = boardRepository.save(boardEntity).getId();
+//        BoardEntity board = boardRepository.findById(savedId).get();
+//        for(MultipartFile boardFile: boardDTO.getBoardFile()) {
+//
+//            // MultipartFile boardFile = boardDTO.getBoardFile(); //1. 파일이 단일일때 쓰고 다중이면 위 반복문으로 이 코드를 대체
+//            String originalFilename = boardFile.getOriginalFilename(); // 2.
+//            String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.  UUID 를 사용해도 됨
+//            String savePath = "C:/board/" + storedFileName;// 4.파일 저장 경로를 직접 만들고 그 경로를 적어 놔야한다 경로는 자기 맘대로다 나는 그냥 여기 파일에 쑤셔 넣었다. 그리고 꼭 콘픽,디테일html 이랑 경로 확인 꼭 해야한다
+//            boardFile.transferTo(new File(savePath));//5.
+//
+//            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
+//            boardFileRepository.save(boardFileEntity);  //db에 저장만 한 내용
+//        }
+//    }
+
 
     //작성
-    public void save(BoardDTO boardDTO, List<MultipartFile> boardImgFileList) throws Exception {
+    public void save(BoardDTO boardDTO,List<MultipartFile> boardFileEntityList) throws  IOException{
+        // 파일이 없을때
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+        boardRepository.save(boardEntity);
 
-        if (boardImgFileList == null || boardImgFileList.isEmpty() && boardDTO.getBoardFileDTOList().isEmpty()) {
-            boardRepository.save(boardEntity);
-        } else {
-            for (int i = 0; i < boardImgFileList.size(); i++) {
-                BoardFileEntity boardFileEntity = new BoardFileEntity();
-                boardFileEntity.setBoardEntity(boardEntity);
-                boardImgService.saveBoardImg(boardFileEntity, boardImgFileList.get(i));
-            }
-        }
+        for(int i=0;i<boardFileEntityList.size();i++){
+            BoardFileEntity boardFileEntity= new BoardFileEntity();
+
+
+
+
+
     }
+
+        }
+
 
         // 게시글 리스트
     @Transactional
