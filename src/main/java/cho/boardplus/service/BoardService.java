@@ -62,19 +62,24 @@ public class BoardService {
 
 
     //작성
-    public void save(BoardDTO boardDTO,List<MultipartFile> boardFileEntityList) throws  IOException{
+    public void save(BoardDTO boardDTO,List<MultipartFile> boardImgFileList) throws  IOException{
         // 파일이 없을때
         BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
         boardRepository.save(boardEntity);
+        List<BoardFileEntity> boardFileEntities = new ArrayList<>();
+        for (MultipartFile boardImgFile : boardImgFileList) {
+            String fileName = boardImgFile.getOriginalFilename();
+            String savePath = "C:\\board\\" + fileName; // 이미지 저장 경로 설정
+            boardImgFile.transferTo(new File(savePath));
 
-        for(int i=0;i<boardFileEntityList.size();i++){
-            BoardFileEntity boardFileEntity= new BoardFileEntity();
+            BoardFileEntity boardFileEntity = new BoardFileEntity();
+            boardFileEntity.setFileName(fileName);
+            boardFileEntity.setSavePath(savePath);
+            boardFileEntity.setBoardEntity(boardEntity);
+            boardFileEntities.add(boardFileEntity);
+        }
 
-
-
-
-
-    }
+        boardFileRepository.saveAll(boardFileEntities);
 
         }
 

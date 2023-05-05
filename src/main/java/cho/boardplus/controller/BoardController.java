@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,9 +41,9 @@ public class BoardController {
 
     // 글작성
     @PostMapping("/save")
-    public String save(@ModelAttribute BoardDTO boardDTO) throws Exception {
+    public String save(@ModelAttribute BoardDTO boardDTO, List<MultipartFile> boardImgFileList) throws Exception {
         System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO);
+        boardService.save(boardDTO,boardImgFileList);
         return "index";
     }
 
