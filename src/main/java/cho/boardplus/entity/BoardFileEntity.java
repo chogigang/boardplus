@@ -31,14 +31,14 @@ public class BoardFileEntity extends BaseEntity {
     private AttachmentType attachmentType; // Enum 타입의 필드를 매핑 파일인지,이미지인지 구분하기 위한 맵핑
 
 
-//    public static BoardFileEntity toBoardFileEntity(BoardEntity boardEntity, String originalFileName, String storedFileName) {
-//        BoardFileEntity boardFileEntity = new BoardFileEntity();
-//        boardFileEntity.setOriginalFileName(originalFileName);
-//        boardFileEntity.setStoredFileName(storedFileName);
-//        boardFileEntity.setBoardEntity(boardEntity);
-//        return boardFileEntity;
-//
-//    }
+    public static BoardFileEntity toBoardFileEntity(BoardEntity boardEntity, String originalFileName, String storedFileName) {
+        BoardFileEntity boardFileEntity = new BoardFileEntity();
+        boardFileEntity.setOriginalFileName(originalFileName);
+        boardFileEntity.setStoredFileName(storedFileName);
+        boardFileEntity.setBoardEntity(boardEntity);
+        return boardFileEntity;
+
+    }
 
 
     public void BoardFileUpload(String originalFileName, String storedFileName, String imgUrl) {
