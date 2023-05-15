@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .mvcMatchers("/", "/members/**", "/board/paging","/board/{id}", "/images/**").permitAll()//
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .mvcMatchers("/comment/save").permitAll()
                 .anyRequest().authenticated()
         ;
         http.csrf().disable();//csrf 토큰 방어 중지
